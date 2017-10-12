@@ -58,6 +58,7 @@ void rearrange(T a[], int n, int r[])
 	delete [] u;
 }
 
+
 template<class T>
 int indexOfMax(T a[], int size)
 {
@@ -107,6 +108,83 @@ void bubbleSort(T a[], int n)
 
 }
 
+////////////////////////////////////////////////////////////////////////////
+
+//原地重新排序，减小占用内存占用内容空间
+template<class T>
+void rearrange_inplace(T a[], int n, int r[])
+{
+	for(int i=0; i<n; i++)
+	{
+		while(r[i] != i)
+		{
+			int t = r[i];
+			::swap(a[i], a[t]);
+			::swap(r[i], r[t]);
+		}
+	}
+}
+
+template <class T>
+void selectionSort_abortInTime(T a[], int n)
+{
+	bool sorted = false;	
+	for(int size=n; !sorted && (sorted>1); size--)
+	{
+		int indexOfMax = 0;
+		sorted = true;
+		for(int i=1; i<size; i++)
+		{
+			if(a[indexOfMax] <= a[i]) indexOfMax = i;
+			else sorted = false;
+		}
+		::swap(a[indexOfMax], a[size-1]);
+	}
+}
+
+template<class T>
+bool bubble(T a[], int n)
+{
+	bool swapped = false;
+	for(int i=0; i<n-1; i++)
+	{
+		if(a[i] > a[i+1])
+		{
+			swap(a[i], a[i+1]);
+			swapped = true;
+		}
+	}
+
+	return swapped;
+}
+
+template <class T>
+void bubbleSort_AbortInTime(T a[], int n)
+{
+	for(int i=n; n>1 && bubble(a, i); i--);
+}
+
+template <class T>
+void insert(T a[], int n, const T& x)
+{
+	int i=0;
+	for(i = n-1; i>=0 && (a<a[i]); i--)
+	{
+		a[i+1] = a[i];
+	}
+	a[i+1] = x;
+}
+
+template <class T>
+void insertionSort(T a[], int n)
+{
+	for(int i=1; i<n; i++)
+	{
+		T t = a[i];
+		::insert(a, i, t);
+	}
+}
+
 int main()
 {
 	std::cout<<"==================名次/计数排序==============="<<std::endl;
@@ -121,6 +199,15 @@ int main()
 	::rearrange(a, 5, r);
 	for(int i=0; i<5; i++)
 		std::cout<<a[i]<<' ' ;
+	std::cout <<endl;
+	
+	std::cout<<"==================原地计数排序==============="<<std::endl;
+	int aa[] = {4,5,9,3,7};
+	int rr[5];
+	::rank(aa, 5, rr);
+	::rearrange_inplace(aa, 5, rr);
+	for(int i=0; i<5; i++)
+		std::cout<<aa[i]<<' ' ;
 	std::cout <<endl;
 
 	std::cout<<"==================选择排序==============="<<std::endl;
