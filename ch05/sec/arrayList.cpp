@@ -172,7 +172,10 @@ std::ostream& operator<<(std::ostream& out, const arrayList<T>& x)
 class iterator
 {
 public:
-	typedef bidirectional_iterator_tag interator_category;
+	//typedef bidirectional_iterator_tag interator_category;
+	typedef int INT;
+
+
 protected:
 	
 };
