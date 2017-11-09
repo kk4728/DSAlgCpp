@@ -75,3 +75,36 @@ Ch05 线性表-数组描述
 
 	5.4 定理：
 		如果按一个乘法因子来增加数组的长度,则实施一系列线性表操作所需的时间与不用改变数组长度时相比，至多增加一个常数因子的复杂度。
+
+Ch06 线性表 - 链式描述
+	在基于数组的描述中，元素的地址是由数学公式决定的；location(i) = i  内存地址连续分配，有规则排序
+	在基于链式描述中，元素的地址是随机分配的。
+
+	6.1 单向描述
+		元素可能需要深度拷贝
+		迭代器应该是向前迭代器
+		typedef std::forward_iterator_tag iterator_category;
+		typedef T value_type;
+		typedef ptrdiff_t difference_type;
+		typedef T* pointer;
+		typedef T& reference;
+
+		iterator& operator++();
+		iterator operator++(int)
+
+		扩展的抽象数据类型
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
