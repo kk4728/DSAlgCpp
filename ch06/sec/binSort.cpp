@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "chain.h"
+#include "binSort.h"
 
 template< class T>
 chain<T> :: chain(int initCapacity)
@@ -153,6 +153,48 @@ void chain<T>::output(std::ostream& out) const
 	}
 }
 
+template <class T>
+void chain<T>::binSort(int range)
+{
+	chainNode<T>** bottom;
+	chainNode<T>** top;
+	bottom = new chainNode<T>* [range + 1];
+	top = new chainNode<T>* [range];
+	for(int i = 0; i <= range; i++)
+		bottom[i] = NULL;
+
+	for(; firstNode != NULL; firstNode = first->next)
+	{
+		int theBin = firstNode->element;
+		if(bottom[theBin] == NULL)
+		{
+			bottom[theBin] = top[theBin] = firstNode;	
+		}
+		else
+		{//box not empty
+			top[theBin]->next = firstNode;
+			top[theBin] = firstNode;
+		}
+	}
+
+	//
+	chainNode<T>* y = NULL;
+	for(int theBin = 0; theBin <= range; theBin++)
+	{
+		if(bottom[theBin] != NULL)
+			firstNode = bottom[theBin];
+		else
+			y->next = bottom[theBin];
+		y = top[theBin];
+	}
+
+	if(y != NULL)
+		y->next = NULL;
+
+	delete [] bottom;
+	delete [] top;
+}
+
 template<class T>
 std::ostream& operator<<(std::ostream& out, const chain<T> & x)
 {
@@ -182,18 +224,7 @@ int main()
 }
 
 
-/////////////////////////////////////////////////
-template <class T>
-class extendedLinearList : public linearList<T>
-{
-public:
-	virtual ~extendedLinearList() {}
 
-	virtual void clear() = 0;
-
-	virtual void push_back(const T& theElement) = 0;
-
-};
 
 
 
