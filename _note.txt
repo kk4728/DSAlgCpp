@@ -108,11 +108,32 @@ Ch06 线性表 - 链式描述
 		6.5.3 凸包
 
 
+Ch07 数组和矩阵
+	7.1 C++中数组
+		定义k维数组：
+		T [i1][i2][i3]...[ik]  起始地址:start
+		数组元素个数：i1 * i2 * i3 ...*ik
+		占用空间: k * sizeof(T)
+		从地址start，至 start + k*sizeof(T)-1 (考虑内存补齐、对齐)
 
+		行主映射和列主映射
+			在行主映射中
+				一维数组：map(ik) = ik;
+				二维数组：map(i, j) = i*col + j; col为数组列数
+				三维数组：map(i, j, k) = i*u2*u3 + j*u3 + k ; T [u1][u2][u3]
+				k维数组： map(i1,i2,i3...ik) = i1*(u2*u3...uk) +i2*(u3*...uk) + ....+ik;
 
+		注意：c++中，行主映射快、还是列主映射快，这取决于先用一维映射定位指针，再用指针定位元素快，还是用二维映射函数定位的快。?
 
+		对于不规则的二维数组，需要采用动态的方式才能申请。之后记得释放内存
+			T** pp = new T*[size];
+			for(int i=0; i<size; i++)
+				*(pp+i) = new T[x];//x位具体长度
 
-
+			//delete
+			for(int i=0; i<size; i++
+				delete [] *(pp+i);//不能使 delete [] (pp+i); pp是二重指针
+			delete [] pp;
 
 
 
